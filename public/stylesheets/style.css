@@ -12,3 +12,4 @@ nav span             { margin: 0px 10px 0px 0px; }
 footer span          { margin: 0px 10px 0px 0px; }
 footer br            { display: none; }
 p                    { font-weight: bold; }
+.right               { float: right; }
