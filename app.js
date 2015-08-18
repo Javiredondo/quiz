@@ -37,6 +37,20 @@ app.use(function(req, res, next) {
 
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
+  // auto-logout de sesión si transcurren más de 2 minutos
+  if (req.session.tiempo) {
+    var ultimoTiempo = new Date().getTime();
+    var intervalo = ultimoTiempo - req.session.tiempo;
+    console.log("intervalo: " + intervalo/(1000 * 60 * 2));
+    if (intervalo > (2 * 60 * 1000)) {
+      delete req.session.tiempo;
+      req.session.autoLogout = true;
+      res.redirect("/logout");
+    }
+    else {
+      req.session.tiempo = ultimoTiempo;
+    }
+  };
   next();
 });
 
